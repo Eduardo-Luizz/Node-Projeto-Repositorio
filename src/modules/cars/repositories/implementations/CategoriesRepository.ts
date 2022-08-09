@@ -1,5 +1,5 @@
-import { Category } from "../models/Category";
-import { ICategoriesRepository, ICreateCategoryDTO } from "./ICategoriesRepository";
+import { Category } from "../../models/Category";
+import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
 // Utilizando o singleton (Classe global para resolver o problema que não tras listagem)
 
