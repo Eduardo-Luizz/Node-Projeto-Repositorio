@@ -1,5 +1,6 @@
 import { v4 as uuidV4 } from "uuid";
 
+// Este é o modelo que a classe deve seguir
 class Category {
   id?: string;
   name: string;

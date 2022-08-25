@@ -1,6 +1,6 @@
 import { Category } from "../models/Category";
 
-// DTO => data transfer object
+// DTO => data transfer object, responsável pelo tráfego de dados entre uma classe e outra
 interface ICreateCategoryDTO {
   name: string;
   description: string;
