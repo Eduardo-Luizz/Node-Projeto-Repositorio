@@ -1,4 +1,4 @@
-import { Category } from "../models/Category";
+import { Category } from "../entities/Category";
 
 // DTO => data transfer object, responsável pelo tráfego de dados entre uma classe e outra
 interface ICreateCategoryDTO {
