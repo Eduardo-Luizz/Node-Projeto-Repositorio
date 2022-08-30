@@ -1,15 +1,16 @@
+import { getRepository, Repository } from "typeorm";
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
 // Utilizando o singleton (Classe global para resolver o problema que não tras listagem)
 // Repositorio manipula os dados
-class CategoriesRepository implements ICategoriesRepository{
-  
-  private categories: Category[] = []; // Este atributo deve ser privado somente o repositorio tem acesso
+class CategoriesRepository implements ICategoriesRepository {
+
+  private repository: Repository<Category>
   private static INSTANCE: CategoriesRepository;
 
   private constructor() { // Tira a responsabilidade do private categories e deixa para o constructor
-    this.categories = [];
+    this.repository = getRepository(Category);
   }
 
   public static getInstance(): CategoriesRepository {
@@ -19,22 +20,22 @@ class CategoriesRepository implements ICategoriesRepository{
     return CategoriesRepository.INSTANCE;
   }
 
-  create({ description, name } : ICreateCategoryDTO) : void {
-    const category = new Category(); 
-    Object.assign(category, { // Object.assign consegue passar um objeto para ele e consegue passar quais são os atributos
-      name,
+  async create({ description, name }: ICreateCategoryDTO): Promise<void> {
+    const category = this.repository.create({
       description,
-      created_at: new Date()
+      name
     });
-    this.categories.push(category);
+    await this.repository.save(category);
   }
 
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 
-  findByName(name: string): Category {
-    const category = this.categories.find(category => category.name === name);
+  async findByName(name: string): Promise<Category> {
+    // SELECT * FROM categories WHERE name = "name" limit 1
+    const category = await this.repository.findOne({ name });
     return category;
   }
 }
