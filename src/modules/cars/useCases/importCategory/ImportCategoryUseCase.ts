@@ -46,9 +46,9 @@ class ImportCategoryUseCase {
     //Valida se existe o mesmo nome de categoria já salvo
     categories.map(async (category) => { // Iterando
       const { name, description } = category;
-      const existCategory = this.categoriesRepository.findByName(name);
+      const existCategory = await this.categoriesRepository.findByName(name);
       if(!existCategory) {
-        this.categoriesRepository.create({
+        await this.categoriesRepository.create({
           name,
           description,
         })
