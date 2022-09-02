@@ -7,17 +7,9 @@ import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesReposit
 class CategoriesRepository implements ICategoriesRepository {
 
   private repository: Repository<Category>
-  private static INSTANCE: CategoriesRepository;
 
-  private constructor() { // Tira a responsabilidade do private categories e deixa para o constructor
+  constructor() { // Tira a responsabilidade do private categories e deixa para o constructor
     this.repository = getRepository(Category);
-  }
-
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-    return CategoriesRepository.INSTANCE;
   }
 
   async create({ description, name }: ICreateCategoryDTO): Promise<void> {
