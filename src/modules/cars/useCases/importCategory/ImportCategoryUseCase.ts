@@ -2,6 +2,7 @@ import fs from "fs";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 import { parse } from 'csv-parse'
 import { inject, injectable } from "tsyringe";
+import csvParser from "csv-parser";
 
 interface IImportCategory {
   name: string;
@@ -20,7 +21,7 @@ class ImportCategoryUseCase {
       const stream = fs.createReadStream(file.path);
       const categories: IImportCategory[] = [];
       const parseFile = parse({
-        delimiter: ','
+        delimiter: ","
       });
       stream.pipe(parseFile);
       parseFile.on('data', async (line) => {
