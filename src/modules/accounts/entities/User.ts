@@ -23,7 +23,7 @@ class Users {
   driver_license: string;
 
   @Column()
-  idAdmin: boolean;
+  isAdmin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
